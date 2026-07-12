@@ -1,16 +1,16 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Symphony10 & AMR 편심 가동 안정성 시뮬레이터</title>
-    <!-- 구글 폰트 및 FontAwesome CDN 로드 -->
+    <title>Symphony10 & AMR Eccentricity Stability Simulator</title>
+    <!-- Google Fonts & FontAwesome CDN -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Share+Tech+Mono&family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     
-    <!-- Three.js 및 OrbitControls CDN 로드 (3D 그래픽 엔진) -->
+    <!-- Three.js & OrbitControls CDN -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
 
@@ -45,7 +45,7 @@
             flex-direction: column;
         }
 
-        /* 헤더 스타일 */
+        /* Header Style */
         header {
             background: linear-gradient(90deg, #1e293b 0%, #0f172a 100%);
             border-bottom: 1px solid var(--border-color);
@@ -91,7 +91,7 @@
             100% { opacity: 0.6; }
         }
 
-        /* 메인 레이아웃 */
+        /* Workspace Layout */
         .workspace {
             display: flex;
             flex: 1;
@@ -99,7 +99,7 @@
             position: relative;
         }
 
-        /* 3D 뷰포트 */
+        /* 3D Viewport */
         #viewport-container {
             flex: 1;
             height: 100%;
@@ -107,7 +107,7 @@
             background: radial-gradient(circle at center, #1e293b 0%, #020617 100%);
         }
 
-        /* 조작 가이드 안내 */
+        /* Interaction Guide Tip */
         .navigation-tip {
             position: absolute;
             bottom: 20px;
@@ -124,7 +124,7 @@
             pointer-events: none;
         }
 
-        /* 실시간 상태 대시보드 (왼쪽 고정 패널) */
+        /* Real-Time Dashboard (Left Panel) */
         .dashboard-panel {
             width: 390px;
             background: var(--panel-bg);
@@ -150,7 +150,7 @@
             margin-bottom: 2px;
         }
 
-        /* 안전도 상태 전광판 */
+        /* Safety Status Card */
         .status-card {
             background: rgba(15, 23, 42, 0.6);
             border-radius: 12px;
@@ -207,7 +207,7 @@
             line-height: 1.45;
         }
 
-        /* 실시간 계측 데이터 리스트 */
+        /* Real-Time Metrics List */
         .metric-list {
             display: flex;
             flex-direction: column;
@@ -243,7 +243,7 @@
             color: #38bdf8;
         }
 
-        /* 하단 컨트롤 패널 */
+        /* Bottom Control Panel */
         .control-panel {
             position: absolute;
             bottom: 20px;
@@ -325,7 +325,7 @@
             transform: scale(1.2);
         }
 
-        /* 토글/버튼 커스텀 */
+        /* Custom Toggle/Button */
         .toggle-container {
             display: flex;
             justify-content: space-between;
@@ -356,7 +356,7 @@
             box-shadow: 0 0 10px rgba(245, 158, 11, 0.4);
         }
 
-        /* 3D 공간 상의 라벨링 레이아웃용 */
+        /* Watermark Labeling */
         .watermark {
             position: absolute;
             top: 20px;
@@ -377,49 +377,49 @@
     <header>
         <h1><i class="fa-solid fa-triangle-exclamation" style="color: var(--accent-red)"></i> Symphony10 (6-DOF) & AMR <span>ECCENTRICITY ANALYZER</span></h1>
         <div style="display: flex; align-items: center; gap: 12px;">
-            <button class="btn-reset" onclick="resetSliders()"><i class="fa-solid fa-rotate-left"></i> 이미지 도면 편심설계 기본값 리셋</button>
+            <button class="btn-reset" onclick="resetSliders()"><i class="fa-solid fa-rotate-left"></i> Reset to CAD Drawing Defaults</button>
             <div class="header-badge">ECCENTRIC LOAD THREAT DETECTION ACTIVE</div>
         </div>
     </header>
 
-    <!-- 작업 공간 영역 -->
+    <!-- Workspace Container -->
     <div class="workspace">
         
-        <!-- 왼쪽 실시간 안전 대시보드 -->
+        <!-- Left Real-Time Safety Dashboard -->
         <div class="dashboard-panel">
             
             <div class="section-title">ECCENTRIC SYSTEM STATUS</div>
-            <!-- 실시간 전복 경보 알림창 -->
+            <!-- Real-Time Overturn Warning Card -->
             <div class="status-card" id="stability-card">
-                <div class="status-title" id="stability-status-title">운용 가동성 상태</div>
+                <div class="status-title" id="stability-status-title">OPERATION FEASIBILITY STATE</div>
                 <div class="status-value" id="stability-status-text">SAFE</div>
-                <div class="status-desc" id="stability-desc">분석 대기 중...</div>
+                <div class="status-desc" id="stability-desc">Awaiting analysis...</div>
             </div>
 
             <div class="section-title">REAL-TIME ECCENTRIC MASS PROPERTIES</div>
             <div class="metric-list">
                 <div class="metric-row">
-                    <span class="metric-label"><i class="fa-solid fa-weight-hanging"></i> 시스템 총 질량</span>
+                    <span class="metric-label"><i class="fa-solid fa-weight-hanging"></i> Total System Mass</span>
                     <span class="metric-value highlight" id="val-total-mass">148.0 kg</span>
                 </div>
                 <div class="metric-row">
-                    <span class="metric-label"><i class="fa-solid fa-truck-ramp-box" style="color: #38bdf8"></i> AMR 플랫폼 자중</span>
+                    <span class="metric-label"><i class="fa-solid fa-truck-ramp-box" style="color: #38bdf8"></i> AMR Chassis Mass</span>
                     <span class="metric-value" id="val-amr-mass-info" style="color: #38bdf8">100 kg</span>
                 </div>
                 <div class="metric-row">
-                    <span class="metric-label"><i class="fa-solid fa-scale-balanced" style="color: var(--accent-orange)"></i> 설계 평형추 중량 (Weight Balance)</span>
+                    <span class="metric-label"><i class="fa-solid fa-scale-balanced" style="color: var(--accent-orange)"></i> Counterweight (Weight Balance)</span>
                     <span class="metric-value" id="val-cw-info" style="color: var(--accent-orange)">35 kg (X:370, Y:-135, Z:-150)</span>
                 </div>
                 <div class="metric-row">
-                    <span class="metric-label"><i class="fa-solid fa-location-crosshairs"></i> 로봇 설치 위치 (X, Z Offset)</span>
+                    <span class="metric-label"><i class="fa-solid fa-location-crosshairs"></i> Robot Installation Position (X, Z Offset)</span>
                     <span class="metric-value" id="val-robot-offset" style="color: #fda4af;">-0.37, 0.15 m</span>
                 </div>
                 <div class="metric-row">
-                    <span class="metric-label"><i class="fa-solid fa-arrows-up-down-left-right"></i> 합성 무게중심 (X, Y, Z CoM)</span>
+                    <span class="metric-label"><i class="fa-solid fa-arrows-up-down-left-right"></i> Combined CoM (X, Y, Z CoM)</span>
                     <span class="metric-value" id="val-com-pos">0.00, 0.00, 0.00 m</span>
                 </div>
                 <div class="metric-row">
-                    <span class="metric-label"><i class="fa-solid fa-shield-halved"></i> 정적 안전율 (SF)</span>
+                    <span class="metric-label"><i class="fa-solid fa-shield-halved"></i> Static Safety Factor (SF)</span>
                     <span class="metric-value highlight" id="val-safety-factor">1.34</span>
                 </div>
             </div>
@@ -427,34 +427,34 @@
             <div class="section-title">MOMENT BALANCE CALCULATIONS</div>
             <div class="metric-list">
                 <div class="metric-row">
-                    <span class="metric-label"><i class="fa-solid fa-circle-left" style="color: var(--accent-red)"></i> 남은 편심 한계 (Front-Rear)</span>
+                    <span class="metric-label"><i class="fa-solid fa-circle-left" style="color: var(--accent-red)"></i> Margin (Front-Rear)</span>
                     <span class="metric-value" id="val-margin-fr" style="color: var(--accent-orange);">100 mm</span>
                 </div>
                 <div class="metric-row">
-                    <span class="metric-label"><i class="fa-solid fa-circle-up" style="color: var(--accent-red)"></i> 남은 편심 한계 (Left-Right)</span>
+                    <span class="metric-label"><i class="fa-solid fa-circle-up" style="color: var(--accent-red)"></i> Margin (Left-Right)</span>
                     <span class="metric-value" id="val-margin-lr" style="color: var(--accent-orange);">100 mm</span>
                 </div>
                 <div class="metric-row">
-                    <span class="metric-label"><i class="fa-solid fa-rotate-right"></i> 전복 모멘트 (Overturning)</span>
+                    <span class="metric-label"><i class="fa-solid fa-rotate-right"></i> Overturning Moment</span>
                     <span class="metric-value" style="color: var(--accent-red);" id="val-over-moment">0.0 N·m</span>
                 </div>
                 <div class="metric-row">
-                    <span class="metric-label"><i class="fa-solid fa-arrow-rotate-left"></i> 복원 모멘트 (Restoring)</span>
+                    <span class="metric-label"><i class="fa-solid fa-arrow-rotate-left"></i> Restoring Moment</span>
                     <span class="metric-value" style="color: var(--accent-green);" id="val-rest-moment">362.0 N·m</span>
                 </div>
             </div>
 
-            <!-- 하드웨어 규격 정보 고정 워터마크 -->
+            <!-- Hardware Spec Watermark -->
             <div style="margin-top: auto; padding: 10px; background: rgba(15, 23, 42, 0.4); border-radius: 8px; border: 1px solid var(--border-color); font-size: 11px; color: var(--text-muted); line-height: 1.5;">
-                <span style="font-weight: bold; color: var(--text-light);">[image_4cbc34 &amp; 4cbc90 도면 분석 기준]</span><br>
-                • AMR 세로(X축): 1,000 mm (한계선 ±500mm)<br>
-                • AMR 가로(Z축): 500 mm (한계선 ±250mm)<br>
-                • 로봇 기구 편심 조립: 코너부 치우침 설계<br>
-                • 플랫폼 자중(100~150kg) 및 3차원 평형추(Weight Balance) 솔루션을 최적 조합하여 안전 운용 지점을 수립하십시오.
+                <span style="font-weight: bold; color: var(--text-light);">[Drawing Analysis Reference: image_4cbc34 & 4cbc90]</span><br>
+                • AMR Length (X-axis): 1,000 mm (Limit ±500mm)<br>
+                • AMR Width (Z-axis): 500 mm (Limit ±250mm)<br>
+                • Robot Base Offset: Corner-biased eccentric mounting<br>
+                • Adjust AMR chassis mass (100–150kg) and 3D counterweight parameters to design a safe operating envelope.
             </div>
         </div>
 
-        <!-- 중앙/우측 3D 그래픽 뷰포트 -->
+        <!-- Center/Right 3D Graphical Viewport -->
         <div id="viewport-container">
             <div class="watermark">
                 <h2>6-DOF SYMPHONY10</h2>
@@ -462,44 +462,44 @@
             </div>
             
             <div class="navigation-tip">
-                <i class="fa-solid fa-circle-info"></i> <span>마우스 드래그: 화면 회전 | 휠: 확대/축소 | Shift+드래그: 화면 이동 (AMR 섀시는 반투명으로 내부 평형추가 투과됩니다)</span>
+                <i class="fa-solid fa-circle-info"></i> <span>Drag: Rotate | Scroll: Zoom | Shift+Drag: Pan (AMR chassis is transparent to expose the internal counterweight)</span>
             </div>
         </div>
 
-        <!-- 하단 파라미터 제어 판넬 -->
+        <!-- Bottom Parameter Control Panel -->
         <div class="control-panel">
             <div class="control-grid">
                 
-                <!-- 기구 및 설치 위치 제어 그룹 (좌측 열) -->
+                <!-- Mechanism & Chassis Design Controls (Left Column) -->
                 <div class="control-group">
-                    <div class="section-title">AMR PLATFORM &amp; BALANCE WEIGHT DESIGN (섀시 투명 상태)</div>
+                    <div class="section-title">AMR PLATFORM & BALANCE WEIGHT DESIGN (Transparent Chassis)</div>
                     
-                    <!-- AMR 자중 및 로봇 오프셋 제어 -->
+                    <!-- AMR Weight & Robot Offset Control -->
                     <div style="display: grid; grid-template-columns: 1.2fr 1fr; gap: 8px;">
-                        <!-- AMR 자중 가변 슬라이더 (100 ~ 150kg) -->
+                        <!-- AMR Variable Weight Slider (100 ~ 150kg) -->
                         <div class="slider-wrapper" style="border: 1px solid rgba(56, 189, 248, 0.4)">
                             <div class="slider-header">
-                                <span class="slider-title" style="color: #38bdf8;"><i class="fa-solid fa-truck-flatbed"></i> AMR 자중</span>
+                                <span class="slider-title" style="color: #38bdf8;"><i class="fa-solid fa-truck-flatbed"></i> AMR Chassis Mass</span>
                                 <span class="slider-value"><span id="lbl-amr-mass">100</span> kg</span>
                             </div>
                             <input type="range" class="slider-input" id="slide-amr-mass" min="100" max="150" value="100" step="5">
                         </div>
 
-                        <!-- 가속도 방향 분기 -->
+                        <!-- Acceleration Direction Switch -->
                         <div class="toggle-container" style="padding: 6px 12px; height: 100%;">
                             <div style="display:flex; flex-direction:column; gap: 2px; width: 100%;">
-                                <span style="font-size:9px; color: var(--text-muted); font-weight:700;">[관성 전복 유도 축]</span>
-                                <label style="font-size:10px; color:var(--text-light); cursor:pointer;"><input type="radio" name="acc-dir" value="lateral" checked> 횡방향 (Z축)</label>
-                                <label style="font-size:10px; color:var(--text-light); cursor:pointer;"><input type="radio" name="acc-dir" value="longitudinal"> 종방향 (X축)</label>
+                                <span style="font-size:9px; color: var(--text-muted); font-weight:700;">[Inertial Force Axis]</span>
+                                <label style="font-size:10px; color:var(--text-light); cursor:pointer;"><input type="radio" name="acc-dir" value="lateral" checked> Lateral (Z-axis)</label>
+                                <label style="font-size:10px; color:var(--text-light); cursor:pointer;"><input type="radio" name="acc-dir" value="longitudinal"> Longitudinal (X-axis)</label>
                             </div>
                         </div>
                     </div>
 
-                    <!-- 로봇 설치 X, Z 오프셋 (종방향 / 횡방향 편심) -->
+                    <!-- Robot Offset X & Z Sliders -->
                     <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px;">
                         <div class="slider-wrapper" style="border: 1px dashed rgba(239, 68, 68, 0.4)">
                             <div class="slider-header">
-                                <span class="slider-title" style="color: var(--accent-red);"><i class="fa-solid fa-arrows-left-right"></i> 로봇 X Offset</span>
+                                <span class="slider-title" style="color: var(--accent-red);"><i class="fa-solid fa-arrows-left-right"></i> Robot X Offset</span>
                                 <span class="slider-value"><span id="lbl-offset-x">-370</span> mm</span>
                             </div>
                             <input type="range" class="slider-input" id="slide-offset-x" min="-450" max="450" value="-370">
@@ -507,19 +507,19 @@
 
                         <div class="slider-wrapper" style="border: 1px dashed rgba(239, 68, 68, 0.4)">
                             <div class="slider-header">
-                                <span class="slider-title" style="color: var(--accent-red);"><i class="fa-solid fa-arrows-up-down"></i> 로봇 Z Offset</span>
+                                <span class="slider-title" style="color: var(--accent-red);"><i class="fa-solid fa-arrows-up-down"></i> Robot Z Offset</span>
                                 <span class="slider-value"><span id="lbl-offset-z">150</span> mm</span>
                             </div>
                             <input type="range" class="slider-input" id="slide-offset-z" min="-200" max="200" value="150">
                         </div>
                     </div>
 
-                    <!-- 평형추(Weight Balance) 3D 매개변수 (X, Y, Z축 올바른 물리 검토) -->
+                    <!-- 3D Counterweight Parameters -->
                     <div style="background: rgba(16, 185, 129, 0.08); border: 1px solid rgba(10, 185, 129, 0.3); border-radius: 8px; padding: 6px; display: flex; flex-direction: column; gap: 4px;">
                         <span style="font-size:10px; color:var(--accent-green); font-weight:700; letter-spacing:0.5px; padding-left: 6px;">[3-AXIS WEIGHT BALANCE OPTIMIZER]</span>
                         
                         <div style="display: grid; grid-template-columns: 100px 1fr; gap: 6px; align-items: center;">
-                            <span style="font-size:11px; color:var(--text-light); padding-left: 6px;">평형추 무게:</span>
+                            <span style="font-size:11px; color:var(--text-light); padding-left: 6px;">C-Weight Mass:</span>
                             <div class="slider-wrapper" style="padding: 4px 8px; background: rgba(15,23,42,0.6);">
                                 <div class="slider-header">
                                     <span class="slider-value" style="color: var(--accent-green);"><span id="lbl-cw-mass">35</span> kg</span>
@@ -528,26 +528,25 @@
                             </div>
                         </div>
 
-                        <!-- 3축 입체 좌표 슬라이더 그룹 -->
+                        <!-- 3D Offset Coordinates -->
                         <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px;">
                             <div class="slider-wrapper" style="padding: 4px 8px; background: rgba(15,23,42,0.6);">
                                 <div class="slider-header">
-                                    <span class="slider-title" style="font-size:10px; color:var(--text-muted);">평형추 X</span>
+                                    <span class="slider-title" style="font-size:10px; color:var(--text-muted);">C-Weight X</span>
                                     <span class="slider-value" style="font-size:11px;"><span id="lbl-cw-x">370</span> mm</span>
                                 </div>
                                 <input type="range" class="slider-input" id="slide-cw-x" min="-450" max="450" value="370">
                             </div>
                             <div class="slider-wrapper" style="padding: 4px 8px; background: rgba(15,23,42,0.6);">
                                 <div class="slider-header">
-                                    <span class="slider-title" style="font-size:10px; color:var(--text-muted);">평형추 Y (높이)</span>
+                                    <span class="slider-title" style="font-size:10px; color:var(--text-muted);">C-Weight Y (Ht)</span>
                                     <span class="slider-value" style="font-size:11px;"><span id="lbl-cw-y">-135</span> mm</span>
                                 </div>
-                                <!-- AMR Height is 370mm. Center is 0. 범위: -185mm ~ 185mm -->
                                 <input type="range" class="slider-input" id="slide-cw-y" min="-185" max="185" value="-135">
                             </div>
                             <div class="slider-wrapper" style="padding: 4px 8px; background: rgba(15,23,42,0.6);">
                                 <div class="slider-header">
-                                    <span class="slider-title" style="font-size:10px; color:var(--text-muted);">평형추 Z</span>
+                                    <span class="slider-title" style="font-size:10px; color:var(--text-muted);">C-Weight Z</span>
                                     <span class="slider-value" style="font-size:11px;"><span id="lbl-cw-z">-150</span> mm</span>
                                 </div>
                                 <input type="range" class="slider-input" id="slide-cw-z" min="-200" max="200" value="-150">
@@ -555,26 +554,26 @@
                         </div>
                     </div>
 
-                    <!-- 실가반하중 (페이로드) -->
+                    <!-- End payload -->
                     <div class="slider-wrapper" style="padding: 6px 12px;">
                         <div class="slider-header">
-                            <span class="slider-title"><i class="fa-solid fa-cubes-shaft"></i> End Payload (가반하중)</span>
+                            <span class="slider-title"><i class="fa-solid fa-cubes-shaft"></i> End Payload</span>
                             <span class="slider-value"><span id="lbl-payload">10.0</span> kg</span>
                         </div>
                         <input type="range" class="slider-input" id="slide-payload" min="0" max="15" step="0.5" value="10">
                     </div>
                 </div>
 
-                <!-- 6축 로봇 관절 각도 및 동적 가속도 제어 그룹 (우측 열) -->
+                <!-- Robot Kinematics & Joint Angles Controls (Right Column) -->
                 <div class="control-group">
                     <div class="section-title">ROBOT KINEMATICS (6-DOF SYMPHONY10) &amp; DRIVING DYNAMICS</div>
                     
-                    <!-- 1~3축 대형 관절 축 라인 -->
+                    <!-- J1 to J3 Angles -->
                     <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px;">
                         <!-- J1 -->
                         <div class="slider-wrapper">
                             <div class="slider-header">
-                                <span class="slider-title" style="color: var(--accent-green);">J1 (Yaw-베이스)</span>
+                                <span class="slider-title" style="color: var(--accent-green);">J1 (Yaw-Base)</span>
                                 <span class="slider-value"><span id="lbl-j1-angle">0</span>°</span>
                             </div>
                             <input type="range" class="slider-input" id="slide-j1" min="-180" max="180" value="0">
@@ -583,7 +582,7 @@
                         <!-- J2 -->
                         <div class="slider-wrapper">
                             <div class="slider-header">
-                                <span class="slider-title" style="color: var(--accent-green);">J2 (Pitch-숄더)</span>
+                                <span class="slider-title" style="color: var(--accent-green);">J2 (Pitch-Shoulder)</span>
                                 <span class="slider-value"><span id="lbl-j2-angle">75</span>°</span>
                             </div>
                             <input type="range" class="slider-input" id="slide-j2" min="-90" max="90" value="75">
@@ -592,14 +591,14 @@
                         <!-- J3 -->
                         <div class="slider-wrapper">
                             <div class="slider-header">
-                                <span class="slider-title" style="color: var(--accent-green);">J3 (Pitch-엘보우)</span>
+                                <span class="slider-title" style="color: var(--accent-green);">J3 (Pitch-Elbow)</span>
                                 <span class="slider-value"><span id="lbl-j3-angle">-80</span>°</span>
                             </div>
                             <input type="range" class="slider-input" id="slide-j3" min="-135" max="135" value="-80">
                         </div>
                     </div>
 
-                    <!-- 4~6축 소형 관절 축 라인 -->
+                    <!-- J4 to J6 Angles -->
                     <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px;">
                         <!-- J4 -->
                         <div class="slider-wrapper">
@@ -630,10 +629,10 @@
                     </div>
 
                     <div style="display: grid; grid-template-columns: 1fr; gap: 10px;">
-                        <!-- AMR 구동 가속도 조건 반영 -->
+                        <!-- AMR Driving Acceleration Condition -->
                         <div class="slider-wrapper" style="margin-top: 0;">
                             <div class="slider-header">
-                                <span class="slider-title" style="color: #fda4af;"><i class="fa-solid fa-gauge-simple-high"></i> AMR 구동 가속도</span>
+                                <span class="slider-title" style="color: #fda4af;"><i class="fa-solid fa-gauge-simple-high"></i> Driving Acceleration</span>
                                 <span class="slider-value" style="color: #fda4af;"><span id="lbl-amr-acc">0.0</span> m/s²</span>
                             </div>
                             <input type="range" class="slider-input" id="slide-amr-acc" min="0" max="2.5" step="0.1" value="0" style="background: #be123c;">
@@ -647,24 +646,24 @@
     </div>
 
     <script>
-        // 1. 전역 변수 설정
+        // 1. Global Variables Setup
         let scene, camera, renderer, controls;
         let amrMesh, joint1Base, joint2Pivot, link1Mesh, joint3Pivot, link2Mesh, joint4Pivot, link3Mesh, joint5Pivot, link4Mesh, joint6Pivot, payloadMesh;
-        let counterweightMesh; // 평형추 시각화 메쉬
+        let counterweightMesh; 
         let supportPolygonLine, projectedComPoint, comMesh, gravityLine;
         
-        // 도면 기반 물리 고정 설계 규격 상수 (m 단위 변환)
-        const AMR_W = 0.5;  // Z축 지지폭
-        const AMR_L = 1.0;  // X축 지지길이
-        const AMR_H = 0.37; // 높이
+        // Fixed Architectural Specifications (converted to meters)
+        const AMR_W = 0.5;  // Z-axis support width
+        const AMR_L = 1.0;  // X-axis support length
+        const AMR_H = 0.37; // Height
         
-        // Symphony10 6축 로봇의 질량 분배 구성 (자중 33kg 보존)
-        const M_L1 = 15.0;  // J1~J2 대형 하부 구조
-        const M_L2 = 10.0;  // J2~J4 중간 링크 구조
-        const M_L3 = 5.0;   // J4~J5 상부 링크 구조
-        const M_L4 = 3.0;   // J5~J6 및 플랜지부
+        // Symphony10 Link Mass Distribution (Cumulative 33kg)
+        const M_L1 = 15.0;  // J1 to J2 lower structure
+        const M_L2 = 10.0;  // J2 to J4 intermediate link
+        const M_L3 = 5.0;   // J4 to J5 upper wrist link
+        const M_L4 = 3.0;   // J5 to J6 flange & core
 
-        // 2. DOM 초기화 바인딩
+        // 2. DOM Elements Bindings
         const sliders = {
             amrMass: document.getElementById('slide-amr-mass'),
             offsetX: document.getElementById('slide-offset-x'),
@@ -718,7 +717,7 @@
             desc: document.getElementById('stability-desc')
         };
 
-        // 3. 3D WebGL 환경 구축 (Three.js)
+        // 3. 3D Environment Init (Three.js)
         function init3D() {
             const container = document.getElementById('viewport-container');
             const width = container.clientWidth;
@@ -744,7 +743,7 @@
             controls.minDistance = 1.0;
             controls.maxDistance = 10.0;
 
-            // 조명 세팅
+            // Lights Setup
             const ambientLight = new THREE.AmbientLight(0xffffff, 0.45);
             scene.add(ambientLight);
 
@@ -762,7 +761,7 @@
             fillLight.position.set(-3, 3, -3);
             scene.add(fillLight);
 
-            // 지면 그리드 바닥
+            // Ground Grid
             const gridHelper = new THREE.GridHelper(10, 20, 0x38bdf8, 0x334155);
             gridHelper.position.y = -0.001;
             scene.add(gridHelper);
@@ -774,23 +773,22 @@
             floor.receiveShadow = true;
             scene.add(floor);
 
-            // 모델 및 장치 구조물 시각화 조립 시작
             buildRobotModel();
             buildStabilityVisuals();
 
             window.addEventListener('resize', onWindowResize);
         }
 
-        // 4. Symphony10 6축 협동로봇 및 투명 AMR 바디 메쉬 설계
+        // 4. Build 6-DOF Robot & Translucent AMR Chassis
         function buildRobotModel() {
-            // [업데이트] 내부 평형추 식별이 쉽도록 AMR 바디 재질을 완전히 투명(transparent)하게 정의
+            // Translucent AMR chassis material
             const amrMaterial = new THREE.MeshStandardMaterial({
                 color: 0x1e293b, 
                 roughness: 0.4,
                 metalness: 0.7,
                 transparent: true,
-                opacity: 0.45,       // 반투명 처리
-                depthWrite: false    // 반투명 겹침 문제 예방
+                opacity: 0.45,       
+                depthWrite: false    
             });
 
             const linkMaterial1 = new THREE.MeshStandardMaterial({
@@ -819,7 +817,7 @@
                 metalness: 0.95
             });
 
-            // AMR 바디 메쉬 생성 (500x1000x370 mm)
+            // AMR Body Box (500x1000x370 mm)
             const amrGeo = new THREE.BoxGeometry(AMR_L, AMR_H, AMR_W);
             amrMesh = new THREE.Mesh(amrGeo, amrMaterial);
             amrMesh.position.y = AMR_H / 2;
@@ -827,7 +825,7 @@
             amrMesh.receiveShadow = true;
             scene.add(amrMesh);
 
-            // [업데이트] 반투명 상태에서 형태적 구분을 명확히 하기 위해 프레임에 입체적 네온 엣지 와이어 추가
+            // Glowing blue outline on frame edges
             const edgeGeo = new THREE.EdgesGeometry(amrGeo);
             const edgeLine = new THREE.LineSegments(edgeGeo, new THREE.LineBasicMaterial({
                 color: 0x38bdf8,
@@ -835,18 +833,17 @@
             }));
             amrMesh.add(edgeLine);
 
-            // [업데이트] 3차원 축을 이동하는 평형추 시각 조립 박스 생성 (기본 크기 확대: 200x120x160mm)
+            // Counterweight Box Object (200x120x160mm)
             const cwGeo = new THREE.BoxGeometry(0.20, 0.12, 0.16);
             counterweightMesh = new THREE.Mesh(cwGeo, cwMaterial);
             counterweightMesh.castShadow = true;
             amrMesh.add(counterweightMesh);
 
-            // 평형추 고정 장식 프레임 추가 (공학적 조립 모사)
             const cwFrameGeo = new THREE.EdgesGeometry(cwGeo);
             const cwFrame = new THREE.LineSegments(cwFrameGeo, new THREE.LineBasicMaterial({ color: 0x059669 }));
             counterweightMesh.add(cwFrame);
 
-            // 캐스터 바퀴 시각 디테일
+            // Caster/Wheel Visuals
             const wheelGeo = new THREE.CylinderGeometry(0.08, 0.08, 0.05, 16);
             const wheelMat = new THREE.MeshStandardMaterial({ color: 0x0f172a, roughness: 0.9, metalness: 0.2 });
             const wheelOffsets = [
@@ -860,72 +857,72 @@
                 amrMesh.add(wheel);
             });
 
-            // Symphony10 6축 로봇 기구 연동 기하부 구축
+            // Symphony10 6-DOF Robot Assembly Setup
             const baseGeo = new THREE.CylinderGeometry(0.12, 0.12, 0.1, 24);
             joint1Base = new THREE.Mesh(baseGeo, linkMaterial1);
             joint1Base.castShadow = true;
             amrMesh.add(joint1Base);
 
-            // J2 숄더 조인트 피벗
+            // J2 Shoulder Pivot Group
             joint2Pivot = new THREE.Group();
             joint2Pivot.position.y = 0.05;
             joint1Base.add(joint2Pivot);
 
-            // 링크 1 (숄더-엘보우 간의 로봇 메인 암 세그먼트, 길이: 0.55m)
+            // Link 1 (Shoulder to Elbow Cylinder, Length: 0.55m)
             const link1Geo = new THREE.CylinderGeometry(0.06, 0.05, 0.55, 16);
             link1Geo.translate(0, 0.55 / 2, 0); 
             link1Mesh = new THREE.Mesh(link1Geo, linkMaterial1);
             link1Mesh.castShadow = true;
             joint2Pivot.add(link1Mesh);
 
-            // J3 엘보우 조인트 피벗
+            // J3 Elbow Pivot Group
             joint3Pivot = new THREE.Group();
             joint3Pivot.position.y = 0.55;
             link1Mesh.add(joint3Pivot);
 
-            // 링크 2 (엘보우-손목 간의 아암 세그먼트, 길이: 0.45m)
+            // Link 2 (Elbow to Wrist Cylinder, Length: 0.45m)
             const link2Geo = new THREE.CylinderGeometry(0.05, 0.045, 0.45, 16);
             link2Geo.translate(0, 0.45 / 2, 0);
             link2Mesh = new THREE.Mesh(link2Geo, linkMaterial2);
             link2Mesh.castShadow = true;
             joint3Pivot.add(link2Mesh);
 
-            // J4 손목 롤 조인트 피벗
+            // J4 Wrist Roll Pivot Group
             joint4Pivot = new THREE.Group();
             joint4Pivot.position.y = 0.45;
             link2Mesh.add(joint4Pivot);
 
-            // 링크 3 (손목 튜브 바디, 길이: 0.15m)
+            // Link 3 (Wrist Base Cylinder, Length: 0.15m)
             const link3Geo = new THREE.CylinderGeometry(0.04, 0.04, 0.15, 16);
             link3Geo.translate(0, 0.15 / 2, 0);
             link3Mesh = new THREE.Mesh(link3Geo, wristMaterial);
             link3Mesh.castShadow = true;
             joint4Pivot.add(link3Mesh);
 
-            // J5 손목 피치 조인트 피벗
+            // J5 Wrist Pitch Pivot Group
             joint5Pivot = new THREE.Group();
             joint5Pivot.position.y = 0.15;
             link3Mesh.add(joint5Pivot);
 
-            // 링크 4 (손목 플랜지 세그먼트, 길이: 0.1m)
+            // Link 4 (Wrist Flange Cylinder, Length: 0.1m)
             const link4Geo = new THREE.CylinderGeometry(0.035, 0.035, 0.1, 16);
             link4Geo.translate(0, 0.1 / 2, 0);
             link4Mesh = new THREE.Mesh(link4Geo, wristMaterial);
             link4Mesh.castShadow = true;
             joint5Pivot.add(link4Mesh);
 
-            // J6 툴 회전 조인트 피벗
+            // J6 Tool Roll Pivot Group
             joint6Pivot = new THREE.Group();
             joint6Pivot.position.y = 0.1;
             link4Mesh.add(joint6Pivot);
 
-            // 최종 엔드이펙터 페이로드 구체 장착 (대형 툴 형태 디자인 모사)
+            // End Payload Sphere (Representing tooling weight/volume)
             const payloadGeo = new THREE.SphereGeometry(0.07, 16, 16);
             payloadMesh = new THREE.Mesh(payloadGeo, payloadMaterial);
             payloadMesh.castShadow = true;
             joint6Pivot.add(payloadMesh);
 
-            // 도면 속 흡착식 기어/기구 피쳐 장식 실루엣 (yellow 가공 툴)
+            // Suction/End-effector Bracket Detail
             const toolBracketGeo = new THREE.BoxGeometry(0.08, 0.12, 0.08);
             const toolBracketMat = new THREE.MeshStandardMaterial({ color: 0xfacc15, roughness: 0.4 });
             const toolBracket = new THREE.Mesh(toolBracketGeo, toolBracketMat);
@@ -933,9 +930,9 @@
             payloadMesh.add(toolBracket);
         }
 
-        // 5. 안정성 기하학 투영 객체 생성
+        // 5. Create Stability Projection & Ground Geometry
         function buildStabilityVisuals() {
-            // 지면 위 바퀴 접지 안전영역 사각형 실선 (500mm x 1000mm 접지 면적)
+            // Ground level outline of wheel contacts (500mm x 1000mm footprint)
             const rectPts = [];
             rectPts.push(new THREE.Vector3(AMR_L/2, 0.01, AMR_W/2));
             rectPts.push(new THREE.Vector3(AMR_L/2, 0.01, -AMR_W/2));
@@ -950,20 +947,20 @@
             }));
             scene.add(supportPolygonLine);
 
-            // 무게중심(CoM) 마커 메쉬 (수식 투영용)
+            // Combined CoM sphere marker
             const comGeo = new THREE.SphereGeometry(0.045, 16, 16);
             const comMat = new THREE.MeshBasicMaterial({ color: 0x10b981, depthWrite: false });
             comMesh = new THREE.Mesh(comGeo, comMat);
             scene.add(comMesh);
 
-            // 실시간 투영 하강점 (과녁 링 메쉬)
+            // Projected Target Point on ground
             const ringGeo = new THREE.RingGeometry(0.02, 0.05, 16);
             const ringMat = new THREE.MeshBasicMaterial({ color: 0x10b981, side: THREE.DoubleSide });
             projectedComPoint = new THREE.Mesh(ringGeo, ringMat);
             projectedComPoint.rotation.x = Math.PI / 2;
             scene.add(projectedComPoint);
 
-            // 하강 중력선
+            // Dashed gravity projection line
             const lineMat = new THREE.LineDashedMaterial({
                 color: 0x10b981,
                 dashSize: 0.05,
@@ -975,18 +972,18 @@
             scene.add(gravityLine);
         }
 
-        // 6. 평형추 설계 조건 및 설치 위치를 반영한 다자유도 물리 연산 엔진
+        // 6. Dynamic Physics Solver Loop
         function updateSimulation() {
-            // [업데이트] AMR 가변 자중 입력 추가
+            // Read variable input parameters
             const m_amr = parseFloat(sliders.amrMass.value);
             
-            const offset_x = parseFloat(sliders.offsetX.value) / 1000.0; // 로봇 종방향 편심
-            const offset_z = parseFloat(sliders.offsetZ.value) / 1000.0; // 로봇 횡방향 편심
+            const offset_x = parseFloat(sliders.offsetX.value) / 1000.0; 
+            const offset_z = parseFloat(sliders.offsetZ.value) / 1000.0; 
             
-            const m_cw = parseFloat(sliders.cwMass.value);               // 평형추 질량
-            const cw_x = parseFloat(sliders.cwX.value) / 1000.0;         // 평형추 X 위치
-            const cw_y = parseFloat(sliders.cwY.value) / 1000.0;         // [업데이트] 평형추 Y 위치 추가
-            const cw_z = parseFloat(sliders.cwZ.value) / 1000.0;         // 평형추 Z 위치
+            const m_cw = parseFloat(sliders.cwMass.value);               
+            const cw_x = parseFloat(sliders.cwX.value) / 1000.0;         
+            const cw_y = parseFloat(sliders.cwY.value) / 1000.0;         
+            const cw_z = parseFloat(sliders.cwZ.value) / 1000.0;         
             
             const m_payload = parseFloat(sliders.payload.value);
             
@@ -998,7 +995,7 @@
             const deg6 = parseFloat(sliders.j6.value);
             const a_linear = parseFloat(sliders.amrAcc.value);
 
-            // UI 레이블 업데이트
+            // Update DOM label displays
             labels.amrMass.innerText = m_amr.toFixed(0);
             labels.amrMassInfo.innerText = `${m_amr.toFixed(0)} kg`;
             labels.offsetX.innerText = sliders.offsetX.value;
@@ -1017,12 +1014,11 @@
             labels.amrAcc.innerText = a_linear.toFixed(1);
             labels.cwInfo.innerText = `${m_cw.toFixed(0)} kg (X:${sliders.cwX.value}, Y:${sliders.cwY.value}, Z:${sliders.cwZ.value})`;
 
-            // [업데이트] 3D 평형추 위치 동적 매핑 (Y 위치는 로컬 AMR 중심에서 오프셋 뺌)
+            // Map counterweight in 3D scene (local space offset inside body)
             counterweightMesh.position.set(cw_x, cw_y, cw_z);
-            // 평형추가 0kg일 경우 시각적으로 숨김 처리
             counterweightMesh.visible = m_cw > 0;
 
-            // 6축 순운동학 회전 변환 적용
+            // Compute joint radians
             const rad1 = (deg1 * Math.PI) / 180;
             const rad2 = (deg2 * Math.PI) / 180;
             const rad3 = (deg3 * Math.PI) / 180;
@@ -1030,22 +1026,22 @@
             const rad5 = (deg5 * Math.PI) / 180;
             const rad6 = (deg6 * Math.PI) / 180;
 
-            // 로봇 베이스 편심 설치 위치(Offset) 즉각 적용
+            // Position base based on mounting offsets
             joint1Base.position.set(offset_x, AMR_H/2 + 0.05, offset_z);
 
-            // 순차적 Joint 로컬 관절축 회전 대입
-            joint1Base.rotation.y = rad1;   // J1: Yaw 회전
-            joint2Pivot.rotation.z = rad2;  // J2: Shoulder Pitch 회전
-            joint3Pivot.rotation.z = rad3;  // J3: Elbow Pitch 회전
-            joint4Pivot.rotation.y = rad4;  // J4: Wrist Roll 회전
-            joint5Pivot.rotation.z = rad5;  // J5: Wrist Pitch 회전
-            joint6Pivot.rotation.y = rad6;  // J6: Tool Roll 회전
+            // Rotate joints sequentially
+            joint1Base.rotation.y = rad1;   
+            joint2Pivot.rotation.z = rad2;  
+            joint3Pivot.rotation.z = rad3;  
+            joint4Pivot.rotation.y = rad4;  
+            joint5Pivot.rotation.z = rad5;  
+            joint6Pivot.rotation.y = rad6;  
 
-            // 프레임 월드 좌표 업데이트 동기화
+            // Force world coordinate matrix calculations
             scene.updateMatrixWorld(true);
 
-            // 주요 기구 컴포넌트 실월드 좌표 추출
-            const posAmr = new THREE.Vector3(0, AMR_H/2, 0); // AMR 베이스 기하 중심
+            // Get component world coordinates
+            const posAmr = new THREE.Vector3(0, AMR_H/2, 0); 
             
             const posShoulder = new THREE.Vector3();
             joint2Pivot.getWorldPosition(posShoulder);
@@ -1065,20 +1061,19 @@
             const posPayload = new THREE.Vector3();
             payloadMesh.getWorldPosition(posPayload);
 
-            // 평형추 월드 위치 구하기
             const posCW = new THREE.Vector3();
             counterweightMesh.getWorldPosition(posCW);
 
-            // 각 관절 링크 분할 무게중심 추정
+            // Calculate link mass center points
             const posCoM_L1 = new THREE.Vector3().addVectors(posShoulder, posElbow).multiplyScalar(0.5);
             const posCoM_L2 = new THREE.Vector3().addVectors(posElbow, posWrist1).multiplyScalar(0.5);
             const posCoM_L3 = new THREE.Vector3().addVectors(posWrist1, posWrist2).multiplyScalar(0.5);
             const posCoM_L4 = new THREE.Vector3().addVectors(posWrist2, posPayload).multiplyScalar(0.5);
 
-            // [업데이트] 합성 시스템 총 질량 계산 시 가변 AMR 자중(m_amr) 적용
+            // Calculate overall system mass
             const m_total = m_amr + m_cw + M_L1 + M_L2 + M_L3 + M_L4 + m_payload;
 
-            // [업데이트] 가변 자중(m_amr)과 3축 평형추를 대입한 복합 가중 평균 무게중심(CoM) 산출
+            // Composite weighted Center of Mass calculation
             const comX = (m_amr * posAmr.x + m_cw * posCW.x + M_L1 * posCoM_L1.x + M_L2 * posCoM_L2.x + M_L3 * posCoM_L3.x + M_L4 * posCoM_L4.x + m_payload * posPayload.x) / m_total;
             const comY = (m_amr * posAmr.y + m_cw * posCW.y + M_L1 * posCoM_L1.y + M_L2 * posCoM_L2.y + M_L3 * posCoM_L3.y + M_L4 * posCoM_L4.y + m_payload * posPayload.y) / m_total;
             const comZ = (m_amr * posAmr.z + m_cw * posCW.z + M_L1 * posCoM_L1.z + M_L2 * posCoM_L2.z + M_L3 * posCoM_L3.z + M_L4 * posCoM_L4.z + m_payload * posPayload.z) / m_total;
@@ -1086,17 +1081,16 @@
             const comWorld = new THREE.Vector3(comX, comY, comZ);
             comMesh.position.copy(comWorld);
 
-            // 동적 가속도 및 D'Alembert 관성 가상력 투영 계산
+            // Apply driving dynamic inertial forces
             const isLateral = document.querySelector('input[name="acc-dir"]:checked').value === 'lateral';
             const ax = isLateral ? 0 : a_linear;
-            const az = isLateral ? a_linear : 0; // 가속도 축 매핑 (X축 종방향, Z축 횡방향)
+            const az = isLateral ? a_linear : 0; 
             const g = 9.81;
 
-            // 지면 위 관성 투영 무게중심의 교점 위치
+            // Intersect projection on floor
             const projX = comWorld.x - (ax * comWorld.y) / g;
             const projZ = comWorld.z - (az * comWorld.y) / g;
 
-            // 투영 포인트 및 하강 라인 업데이트
             projectedComPoint.position.set(projX, 0.012, projZ);
 
             const gravityPts = [
@@ -1106,18 +1100,17 @@
             gravityLine.geometry.setFromPoints(gravityPts);
             gravityLine.computeLineDistances();
 
-            // 7. 정적/동적 전복 여부 실시간 검증 (편심 오프셋 기반 가용 마진 축소 핵심)
-            const footprintHalfL = AMR_L / 2; // 종방향 한계선: 0.5m (±500mm)
-            const footprintHalfW = AMR_W / 2; // 횡방향 한계선: 0.25m (±250mm)
+            // 7. Verify Static & Dynamic Tip-over Limits
+            const footprintHalfL = AMR_L / 2; // X-axis limit boundary: ±500mm
+            const footprintHalfW = AMR_W / 2; // Z-axis limit boundary: ±250mm
 
-            // 투영점이 각 지면 아웃라인 바퀴 경계면까지 남은 물리적 거리 마진 계산
+            // Compute distance margin to physical boundary edges
             const distBoundaryX = footprintHalfL - Math.abs(projX);
             const distBoundaryZ = footprintHalfW - Math.abs(projZ);
 
             const isTipped = distBoundaryX <= 0 || distBoundaryZ <= 0;
 
-            // 모멘트 밸런스 연산
-            // 6축 링크들과 페이로드의 편심 회전 모멘트 합산 산출
+            // Moment Balance calculations
             const distRobotCenterToPayload = Math.sqrt(Math.pow(posPayload.x - offset_x, 2) + Math.pow(posPayload.z - offset_z, 2));
             const m_upper_static_mom = (M_L1 * Math.sqrt(Math.pow(posCoM_L1.x - offset_x, 2) + Math.pow(posCoM_L1.z - offset_z, 2)) +
                                         M_L2 * Math.sqrt(Math.pow(posCoM_L2.x - offset_x, 2) + Math.pow(posCoM_L2.z - offset_z, 2)) +
@@ -1125,19 +1118,17 @@
                                         M_L4 * Math.sqrt(Math.pow(posCoM_L4.x - offset_x, 2) + Math.pow(posCoM_L4.z - offset_z, 2))) * g 
                                         + (m_payload * g * distRobotCenterToPayload);
 
-            // 동적 전복 유도 가속 관성 모멘트
             const m_over_dynamic = m_total * a_linear * comWorld.y;
             const totalOverturningMoment = m_upper_static_mom + m_over_dynamic;
 
-            // 투영 무게중심 방향에 따른 복원 모멘트 분기
             const activeHalfWidth = (Math.abs(projZ) / footprintHalfW > Math.abs(projX) / footprintHalfL) ? footprintHalfW : footprintHalfL;
             const totalRestoringMoment = m_total * g * activeHalfWidth;
 
-            // 안전율 계산
+            // Calculate Safety Factor
             let safetyFactor = totalRestoringMoment / (totalOverturningMoment > 1 ? totalOverturningMoment : 1);
             if (isTipped) safetyFactor = 0.00;
 
-            // 대시보드 출력값 매핑
+            // Assign outputs
             outputs.totalMass.innerText = `${m_total.toFixed(1)} kg`;
             outputs.robotOffset.innerText = `${(offset_x * 1000).toFixed(0)}, ${(offset_z * 1000).toFixed(0)} mm`;
             outputs.comPos.innerText = `${comWorld.x.toFixed(2)}, ${comWorld.y.toFixed(2)}, ${comWorld.z.toFixed(2)} m`;
@@ -1145,44 +1136,43 @@
             outputs.overMoment.innerText = `${totalOverturningMoment.toFixed(1)} N·m`;
             outputs.restMoment.innerText = `${totalRestoringMoment.toFixed(1)} N·m`;
 
-            // 남은 편심 한계 거리 표시
             outputs.marginFR.innerText = `${(distBoundaryX * 1000).toFixed(0)} mm`;
             outputs.marginLR.innerText = `${(distBoundaryZ * 1000).toFixed(0)} mm`;
 
-            // 8. 위험 여부에 따른 경보 대시보드 상태 전환 및 컬러 스키마 지정
+            // 8. Update Dashboard Alarm State & Color Schemes
             let visualColor = 0x10b981; // Safe Green
             
             if (isTipped) {
                 visualColor = 0xef4444; // Critical Red
                 outputs.card.className = "status-card critical";
                 outputs.statusText.innerText = "CRITICAL / OVERTURNED";
-                outputs.statusTitle.innerText = "가동 위험 극대: 전복 붕괴";
-                outputs.desc.innerHTML = `<span style="color:var(--accent-red); font-weight:700;">시스템 전복 발생!</span> 무게중심이 지면 접지면(1000x500mm) 밖으로 이탈했습니다. 평형추 설계 오프셋 및 AMR 자중을 조절하여 복원력을 높여야 합니다.`;
+                outputs.statusTitle.innerText = "HIGH DANGER: TIPPING COLLAPSE";
+                outputs.desc.innerHTML = `<span style="color:var(--accent-red); font-weight:700;">System Overturned!</span> The CoM has drifted outside the contact footprint (1000x500mm). Adjust the counterweight offset and AMR mass parameters to recover stability.`;
             } else if (distBoundaryX < 0.08 || distBoundaryZ < 0.04 || safetyFactor < 1.3) {
                 visualColor = 0xf59e0b; // Warning Orange
                 outputs.card.className = "status-card warning";
                 outputs.statusText.innerText = "CRITICAL WARNING";
-                outputs.statusTitle.innerText = "전복 임계 도달 (극도로 위험)";
-                outputs.desc.innerHTML = `무게중심이 접지 경계선까지 <b>종방향 ${ (distBoundaryX * 1000).toFixed(0) }mm / 횡방향 ${ (distBoundaryZ * 1000).toFixed(0) }mm</b> 남았습니다. 평형추(Weight Balance) 좌표를 최적화하거나 AMR 자체 무게를 늘리십시오.`;
+                outputs.statusTitle.innerText = "TIPPING THRESHOLD REACHED";
+                outputs.desc.innerHTML = `Center of Mass is within <b>${(distBoundaryX * 1000).toFixed(0)}mm (Longitudinal) / ${(distBoundaryZ * 1000).toFixed(0)}mm (Lateral)</b> of the support edge. Optimize the counterweight coordinates or increase the AMR chassis weight.`;
             } else {
                 outputs.card.className = "status-card";
                 outputs.statusText.innerText = "STABLE ZONE";
-                outputs.statusTitle.innerText = "정적 운용 안정 범위";
+                outputs.statusTitle.innerText = "STATIC OPERATION RANGE";
                 if (m_cw > 0) {
-                    outputs.desc.innerHTML = `<span style="color:var(--accent-green); font-weight:700;">[평형추 장착 효과]</span> 로봇의 극단적 편심에도 불구하고, 대각선 대칭 설계된 평형추로 인해 무게중심이 안정 복원되었습니다.`;
+                    outputs.desc.innerHTML = `<span style="color:var(--accent-green); font-weight:700;">[Counterweight Enabled]</span> Symmetrical weight balancing successfully counters the robot's eccentric load, stabilizing the overall system.`;
                 } else {
-                    outputs.desc.innerText = "현재 자세 및 편심량 기준으로는 접지 안정 한계 내에 투영 무게중심이 머물러 있습니다.";
+                    outputs.desc.innerText = "The projected center of mass lies comfortably within the physical ground boundaries.";
                 }
             }
 
-            // 3D 요소 컬러 업데이트 동기화
+            // Sync color to Three.js elements
             supportPolygonLine.material.color.setHex(visualColor);
             comMesh.material.color.setHex(visualColor);
             gravityLine.material.color.setHex(visualColor);
             projectedComPoint.material.color.setHex(visualColor);
         }
 
-        // 9. 윈도우 창 조절 처리
+        // 9. Window Resize handler
         function onWindowResize() {
             const container = document.getElementById('viewport-container');
             if (!container) return;
@@ -1195,22 +1185,22 @@
             renderer.setSize(width, height);
         }
 
-        // 10. 슬라이더 기본값 리셋 이벤트 처리 (image_4cbc34 & 4cbc90 도면 분석 기준의 편심 장착 배치값 및 평형추 최적 솔루션)
+        // 10. Reset Sliders to CAD Drawing Specs (image_4cbc34 & 4cbc90 reference defaults)
         function resetSliders() {
-            // 도면에 도시된 편심 설치 치수를 고대로 모사
-            sliders.amrMass.value = 100;   // AMR 기본 중량 100kg
-            sliders.offsetX.value = -370; // 좌측 끝 경계면 부근 편심 세팅
-            sliders.offsetZ.value = 150;  // 횡방향 사이드 경계면 부근 편심 세팅
+            // Re-apply original CAD offset values
+            sliders.amrMass.value = 100;   // AMR Base weight (100kg limit)
+            sliders.offsetX.value = -370; // Left-biased mounting
+            sliders.offsetZ.value = 150;  // Front-biased mounting
             
-            // 안정적인 시스템 설계를 위한 최적의 3축 무게 밸런스 값 적용
-            sliders.cwMass.value = 35;    // 최적 평형추 무게 35kg (AMR 자중 100kg 한정 조건 충족)
-            sliders.cwX.value = 370;      // 로봇과 대칭되는 정반대 종방향 위치 (+370mm)
-            sliders.cwY.value = -135;     // AMR 하우징 내 최하단 배치 (-135mm)
-            sliders.cwZ.value = -150;     // 로봇과 대칭되는 정반대 횡방향 위치 (-150mm)
+            // Symmetrical weight balance defaults for optimal safety
+            sliders.cwMass.value = 35;    
+            sliders.cwX.value = 370;      // Counter-diagonal X
+            sliders.cwY.value = -135;     // Bottom shelf configuration
+            sliders.cwZ.value = -150;     // Counter-diagonal Z
             
-            sliders.payload.value = 10.0;  // Symphony10 최대 가반하중 10kg 적용
+            sliders.payload.value = 10.0;  // Symphony10 Max Payload
             
-            // J1~J6 관절 각도를 도면의 구부러진 포즈와 유사하게 세팅
+            // Joint configurations matched to drawing poses
             sliders.j1.value = 0;
             sliders.j2.value = 75;
             sliders.j3.value = -80;
@@ -1222,18 +1212,18 @@
             updateSimulation();
         }
 
-        // 11. 시뮬레이션 기본 루프 실행 
+        // 11. Run Animation Loop
         function animate() {
             requestAnimationFrame(animate);
             controls.update();
             renderer.render(scene, camera);
         }
 
-        // 시뮬레이터 실행 개시
+        // Initialize Simulator
         window.onload = () => {
             init3D();
             
-            // 모든 제어 노드에 실시간 연산 동기화 이벤트 바인딩
+            // Bind sliders to dynamic updater
             Object.values(sliders).forEach(slider => {
                 slider.addEventListener('input', updateSimulation);
             });
@@ -1241,7 +1231,6 @@
                 radio.addEventListener('change', updateSimulation);
             });
 
-            // 초기 도면 편심 값으로 셋팅 및 시뮬레이션 실행
             resetSliders();
             animate();
         };
